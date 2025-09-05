@@ -103,7 +103,29 @@
             "metadata": {
                 "description": "Custom Consumer group name"
             }
+        },
+        "functionName": { 
+            "type": "string", 
+            "defaultValue": "", 
+            "metadata": { 
+                "description": "Custom Function App name (optional)" 
+            } 
+        },
+        "appServicePlanName": { 
+            "type": "string", 
+            "defaultValue": "", 
+            "metadata": { 
+                "description": "Custom App Service Plan name (optional)" 
+            } 
+        },
+        "storageAccountName": { 
+            "type": "string", 
+            "defaultValue": "", 
+            "metadata": { 
+                "description": "Custom Storage Account name (optional)" 
+            } 
         }
+
     },
     "variables": {
         "dtHost": "[replace(parameters('targetUrl'),'https://','')]",
@@ -115,11 +137,11 @@
         "virtualNetworkName": "[concat(parameters('forwarderName'),'-vnet')]",
         "functionSubnetName": "functionapp",
         "containerSubnetName": "aci",
-        "appServicePlan": "[concat(parameters('forwarderName'),'-plan')]",
-        "functionName": "[concat(parameters('forwarderName'),'-function')]",
+        "appServicePlan": "asplsrepeu2p02",
+        "functionName": "[parameters('forwarderName')]",
 		"forwarderNameShort": "[take(parameters('forwarderName'), 18)]",
 		"randomIdToMakeStorageAccountGloballyUnique": "[substring(uniqueString(parameters('forwarderName'), resourceGroup().id), 0, 4)]",
-        "storageAccountName": "[concat(variables('forwarderNameShort'), 'sa', variables('randomIdToMakeStorageAccountGloballyUnique'))]",
+        "storageAccountName": "stacsrepeu2p03",
         "virtualNetworkId": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "functionSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('functionSubnetName'))]",
         "containerSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('containerSubnetName'))]",
